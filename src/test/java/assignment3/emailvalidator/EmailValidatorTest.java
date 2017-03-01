@@ -14,7 +14,8 @@ public class EmailValidatorTest {
 
 	@Test
 	public void stageOneTest() {
-		assertEquals(2, EmailValidator.validateEmail(String email));
+		EmailValidator validator = new EmailValidator();
+		assertEquals(2, validator.validateEmail("example@example.com"));
 	}
 
 }
