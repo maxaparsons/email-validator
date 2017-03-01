@@ -17,7 +17,7 @@ public class EmailValidatorTest {
 	 * meaning the email had exactly 1 "@" characters
 	 * and the email had at least 1 "." characters
 	 */
-	public void bothRulesPassed() {
+	public void testBothRulesPassed() {
 		EmailValidator validator = new EmailValidator();
 		assertEquals(2, validator.validateEmail("example@example.com"));
 	}
@@ -27,7 +27,7 @@ public class EmailValidatorTest {
 	 * meaning the email had exactly 1 "@" characters
 	 * and the email had 0 "." characters
 	 */
-	public void ruleOnePassedOnly() {
+	public void testRuleOnePassedOnly() {
 		EmailValidator validator = new EmailValidator();
 		assertEquals(1, validator.validateEmail("example@examplecom"));
 	}
@@ -37,9 +37,9 @@ public class EmailValidatorTest {
 	 * meaning the email had more than 1 or 0 "@" characters
 	 * and the email had at least 1 "." characters
 	 */
-	public void ruleTwoPassedOnly() {
+	public void testRuleTwoPassedOnly() {
 		EmailValidator validator = new EmailValidator();
-		assertEquals(1, validator.validateEmail("example@@example.com"));
+		assertEquals(1, validator.validateEmail("example@@example....com"));
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ public class EmailValidatorTest {
 	 * meaning the email had more than 1 or 0 "@" characters
 	 * and the email had 0 "." characters
 	 */
-	public void noRulesPassed() {
+	public void testNoRulesPassed() {
 		EmailValidator validator = new EmailValidator();
 		assertEquals(0, validator.validateEmail("exampleexamplecom"));
 	}

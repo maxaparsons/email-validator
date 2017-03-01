@@ -3,16 +3,23 @@ package assignment3.emailvalidator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
+ * Class to determine if an email is valid based on two rules:
+ * 1. the email has exactly one "@" character
+ * 2. the email has at least one "." character
+ * 
+ * Uses regular expressions to check if email matches the rules
+ * 
+ * If the return value of the validate method is 2, then the email is valid
+ */
 public class EmailValidator {
 
 	//constants
-	private final String rule1 = "^[^@]*(@)[^@]*$"; //email has exactly one "@"
-	private final String rule2 = "\\.+"; //email has at least one "."
+	private static final String RULE_1 = "^[^@]*(@)[^@]*$"; //email has exactly one "@"
+	private static final String RULE_2 = "\\.+"; //email has at least one "."
 	
 	//attributes
-	private String email;
 	private int rulesPassed;
-	private boolean validity;
 	private Pattern pattern;
 	private Matcher matcher;
 	
@@ -23,20 +30,12 @@ public class EmailValidator {
 	}
 	
 	//getters
-	public String getEmail()
-	{
-		return email;
-	}
 	public int getRulesPassed()
 	{
 		return rulesPassed;
 	}
 	
 	//setters
-	public void setEmail(String email)
-	{
-		this.email = email;
-	}
 	public void setPattern(final String rule)
 	{
 		pattern = Pattern.compile(rule);
@@ -46,31 +45,39 @@ public class EmailValidator {
 		matcher = pattern.matcher(email);
 	}
 	
-	//toString
-	public String toString()
-	{
-		return "Email: " + email + "\nValid: " + validity;
-	}
+	// METHODS //
 	
-	//methods
+	/**
+	 * Method to determine if an email is valid
+	 * 
+	 * @param email the email to validate
+	 * @return rulesPassed the number of rules the email passes. 2 indicates validity
+	 */
 	public int validateEmail(String email)
 	{
 		//check if email passes rule 1
-		setPattern(rule1);
-		setMatcher(email);
-		if (matcher.find())
-		{
-			rulesPassed++; //rule 1 passed
-		}
+		doesRulePass(RULE_1,email);
 		
 		//check if email passes rule 2
-		setPattern(rule2);
+		doesRulePass(RULE_2,email);
+		
+		return rulesPassed;
+	}
+	
+	/**
+	 * Helper method to validateEmail. 
+	 * 
+	 * Binds the Regex tools (Pattern and Matcher) to the correct rule, email.
+	 * @param rule regex describing the rule
+	 * @param email string to match against the rule
+	 */
+	private void doesRulePass(final String rule, String email)
+	{
+		setPattern(rule);
 		setMatcher(email);
 		if (matcher.find())
 		{
-			rulesPassed++; //rule 2 passed
+			rulesPassed++; //rule passed
 		}
-		
-		return rulesPassed;
 	}
 }
