@@ -21,6 +21,7 @@ public class EmailValidator {
 	private static final String RULE_2 = "\\.+"; //email has at least one "."
 	private static final String RULE_3 = "^[a-zA-Z]"; //email begins with letter
 	private static final String RULE_4 = "(com)$"; //email ends with com
+	private static final String[] RULES = {RULE_1,RULE_2,RULE_3,RULE_4};
 	
 	//attributes
 	private int rulesPassed;
@@ -59,17 +60,10 @@ public class EmailValidator {
 	 */
 	public int validateEmail(String email)
 	{
-		//check if email passes rule 1
-		doesRulePass(RULE_1,email);
-		
-		//check if email passes rule 2
-		doesRulePass(RULE_2,email);
-		
-		//check if email passes rule 3
-		doesRulePass(RULE_3,email);
-		
-		//check if email passes rule 4
-		doesRulePass(RULE_4,email);
+		for (String s:RULES)
+		{
+			doesRulePass(s,email);
+		}
 		
 		return rulesPassed;
 	}
