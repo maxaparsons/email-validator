@@ -17,6 +17,7 @@ public class EmailValidator {
 	//constants
 	private static final String RULE_1 = "^[^@]*(@)[^@]*$"; //email has exactly one "@"
 	private static final String RULE_2 = "\\.+"; //email has at least one "."
+	private static final String[] RULES = {RULE_1,RULE_2};
 	
 	//attributes
 	private int rulesPassed;
@@ -55,11 +56,10 @@ public class EmailValidator {
 	 */
 	public int validateEmail(String email)
 	{
-		//check if email passes rule 1
-		doesRulePass(RULE_1,email);
-		
-		//check if email passes rule 2
-		doesRulePass(RULE_2,email);
+		for (String s:RULES)
+		{
+			doesRulePass(s,email);
+		}
 		
 		return rulesPassed;
 	}
